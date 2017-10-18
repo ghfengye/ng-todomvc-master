@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Template • TodoMVC</title>
+    <link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+    <link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+    <!-- CSS overrides - remove if you don't need it -->
+    <link rel="stylesheet" href="css/app.css">
+    <style>
+        [ng-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+
+<!--3.启动angular-->
+<!--5、绑定数据到页面上-->
+<body ng-app="todomvcApp" ng-controller="todoCtrl" ng-cloak>
+    <section class="todoapp">
+        <header class="header">
+            <h1>todos</h1>
+            <!--回车将当前input中的数据添加到todos-->
+            <form ng-submit="addTodo()">
+                <input class="new-todo" placeholder="What needs to be done?" autofocus  ng-model="content">
+            </form>
+        </header>
+        <!-- This section should be hidden by default and shown when there are todos -->
+        <section class="main">
+            <input class="toggle-all" type="checkbox" ng-model="toggleAll">
+            <label for="toggle-all" ng-click="changeToggle()">Mark all as complete</label>
+            <ul class="todo-list">
+                <!-- These are here just to show the structure of the list items -->
+                <!-- List items should get the class `editing` when editing and `completed` when marked as completed -->
+                <li todo-focus="" ng-repeat="item in todoList | filter:statusFilter track by $index" ng-class="{'completed':item.status,'editing':item==xtodo}">
+                    <div class="view">
+                        <input class="toggle" type="checkbox" ng-model="item.status">
+                        <label ng-dblclick="editTodo(item)">{{item.content}}</label>
+                        <button class="destroy" ng-click="delTodo(item)"></button>
+                    </div>
+                    <input class="edit" ng-blur="removeXtodo()"  ng-model="item.content">
+                </li>
+
+            </ul>
+        </section>
+        <!-- This footer should hidden by default and shown when there are todos -->
+        <footer class="footer">
+            <!-- This should be `0 items left` by default -->
+            <span class="todo-count"><strong  ng-bind="count"></strong> item left</span>
+            <!-- Remove this if you don't implement routing -->
+            <ul class="filters">
+                <li>
+                    <a class="selected" href="#/" ng-click="changeStatus({})">All</a>
+                </li>
+                <li>
+                    <a href="#/active" ng-click="changeStatus({status:false})">Active</a>
+                </li>
+                <li>
+                    <a href="#/completed" ng-click="changeStatus({status:true})">Completed</a>
+                </li>
+            </ul>
+            <!-- Hidden if no completed items are left ↓ -->
+            <button class="clear-completed" ng-click="clearCompleted()">Clear completed</button>
+        </footer>
+    </section>
+    <footer class="info">
+        <p>Double-click to edit a todo</p>
+        <!-- Remove the below line ↓ -->
+        <p>Template by <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
+        <!-- Change this out with your name and url ↓ -->
+        <p>Created by <a href="http://todomvc.com">you</a></p>
+        <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+    </footer>
+  <!--1.引入angular-->
+    <script src="node_modules/angular/angular.js"></script>
+    <script src="js/app.js"></script>
+
+
+</body>
+
+</html>
